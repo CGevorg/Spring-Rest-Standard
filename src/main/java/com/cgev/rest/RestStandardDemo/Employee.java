@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Resource {
+public class Employee {
     @Id
     @GeneratedValue
     private Integer id;
@@ -13,16 +13,16 @@ public class Resource {
     private String anotherData;
 
 
-    public Resource() {
+    public Employee() {
 
     }
 
-    Resource(String someData, String anotherData) {
+    Employee(String someData, String anotherData) {
         this.someData = someData;
         this.anotherData = anotherData;
     }
 
-    public Integer getId() {
+    Integer getId() {
         return id;
     }
 

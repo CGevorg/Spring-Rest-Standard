@@ -9,10 +9,10 @@ public class LoadDatabase {
 
 
     @Bean
-    CommandLineRunner initDatabase(ResourceRepository repository) {
+    CommandLineRunner initDatabase(EmployeeRepository repository) {
         return args -> {
-            repository.save(new Resource("1.1", "1.2"));
-            repository.save(new Resource("2.1", "2.2"));
+            repository.save(new Employee("1.1", "1.2"));
+            repository.save(new Employee("2.1", "2.2"));
         };
     }
 }
