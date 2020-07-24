@@ -1,11 +1,13 @@
 package com.cgev.rest.RestStandardDemo;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Employee {
+public class EmployeeEntity {
     @Id
     @GeneratedValue
     private Integer id;
@@ -13,16 +15,16 @@ public class Employee {
     private String anotherData;
 
 
-    public Employee() {
+    public EmployeeEntity() {
 
     }
 
-    Employee(String someData, String anotherData) {
+    EmployeeEntity(String someData, String anotherData) {
         this.someData = someData;
         this.anotherData = anotherData;
     }
 
-    Integer getId() {
+    public Integer getId() {
         return id;
     }
 
