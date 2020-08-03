@@ -1,7 +1,5 @@
 package com.cgev.rest.RestStandardDemo;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class EmployeeDTO {
 
     private Integer id;

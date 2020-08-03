@@ -1,0 +1,26 @@
+version: "3.3"
+services:
+  docker-mysql:
+    image: mysql:8.0
+    volumes:
+      - db-data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=vmware
+      #- MYSQL_DATABASE=new
+      # - MYSQL_USER=root
+      # - MYSQL_PASSWORD=vmware
+      # - HOSTNAME=own-network
+    ports:
+      - 3305:3306
+    restart: unless-stopped
+  webapp:
+    build: .
+    ports:
+      - 8080:8080
+    depends_on:
+      - docker-mysql
+    restart: unless-stopped
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://docker-mysql:3306/new?createDatabaseIfNotExist=true&serverTimezone=UTC
+volumes:
+  db-data:
