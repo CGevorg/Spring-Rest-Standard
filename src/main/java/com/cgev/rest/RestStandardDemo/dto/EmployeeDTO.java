@@ -1,4 +1,4 @@
-package com.cgev.rest.RestStandardDemo;
+package com.cgev.rest.RestStandardDemo.dto;
 
 public class EmployeeDTO {
 

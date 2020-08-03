@@ -1,4 +1,4 @@
-package com.cgev.rest.RestStandardDemo;
+package com.cgev.rest.RestStandardDemo.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

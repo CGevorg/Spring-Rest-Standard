@@ -1,5 +1,7 @@
-package com.cgev.rest.RestStandardDemo;
+package com.cgev.rest.RestStandardDemo.controller;
 
+import com.cgev.rest.RestStandardDemo.dto.EmployeeDTO;
+import com.cgev.rest.RestStandardDemo.service.EmployeeService;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;

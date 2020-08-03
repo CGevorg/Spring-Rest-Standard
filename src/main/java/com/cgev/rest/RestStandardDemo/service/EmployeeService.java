@@ -1,8 +1,11 @@
-package com.cgev.rest.RestStandardDemo;
+package com.cgev.rest.RestStandardDemo.service;
 
 
+import com.cgev.rest.RestStandardDemo.dto.EmployeeDTO;
+import com.cgev.rest.RestStandardDemo.model.EmployeeEntity;
+import com.cgev.rest.RestStandardDemo.repository.EmployeeRepository;
+import com.cgev.rest.RestStandardDemo.exceptions.EmployeeNotFoundException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,18 +21,18 @@ public class EmployeeService {
         this.repository = repository;
     }
 
-    List<EmployeeDTO> getEmployees() {
+    public List<EmployeeDTO> getEmployees() {
         return repository.findAll().stream()
                 .map(entity ->  mapper.convertValue(entity,EmployeeDTO.class))
                 .collect(Collectors.toList());
     }
 
-    EmployeeDTO getEmployee(Integer id) {
+    public EmployeeDTO getEmployee(Integer id) {
         EmployeeEntity entity = repository.findById(id).orElseThrow(() -> new EmployeeNotFoundException(id));
         return mapper.convertValue(entity, EmployeeDTO.class);
     }
 
-    void deleteEmployee(Integer id) {
+    public void deleteEmployee(Integer id) {
         repository.findById(id).orElseThrow(() -> new EmployeeNotFoundException(id));
         repository.deleteById(id);
     }
@@ -39,7 +42,7 @@ public class EmployeeService {
      * @param employee which we are going to add
      * @return new added object
      */
-    EmployeeDTO addEmployee(EmployeeDTO employee) {
+    public EmployeeDTO addEmployee(EmployeeDTO employee) {
 
         return mapper.convertValue(repository.save(mapper.convertValue(employee, EmployeeEntity.class)), EmployeeDTO.class);
     }
