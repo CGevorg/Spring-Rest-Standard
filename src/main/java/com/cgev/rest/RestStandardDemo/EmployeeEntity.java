@@ -2,16 +2,21 @@ package com.cgev.rest.RestStandardDemo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "employee")
 public class EmployeeEntity {
     @Id
     @GeneratedValue
     private Integer id;
+    @Column(name = "some_data")
     private String someData;
+    @Column(name = "another_data")
     private String anotherData;
 
 

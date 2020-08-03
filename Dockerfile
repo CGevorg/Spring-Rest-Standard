@@ -6,6 +6,6 @@ WORKDIR /home/src
 RUN mvn package -Dmaven.test.skip
 
 FROM openjdk:11-jre-slim
-COPY --from=build /home/src/target/DockerDemo-0.0.1-SNAPSHOT.jar /home/app/demo.jar
+COPY --from=build /home/src/target/Rest-Standard-Demo-0.0.1-SNAPSHOT.jar /home/app/demo.jar
 EXPOSE 8080:8080
 ENTRYPOINT ["java", "-jar", "/home/app/demo.jar"]
