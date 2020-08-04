@@ -27,22 +27,17 @@ public class EmployeeController {
         this.service = service;
     }
 
-    @GetMapping("/employees")
-    Collection<EmployeeDTO> getEmployees() {
-        return service.getEmployees();
-    }
-
-    @GetMapping("/employees/{id}")
-    EmployeeDTO getEmployee(@PathVariable Integer id) {
-        return service.getEmployee(id);
-    }
-
     @PostMapping("/employees")
     @ResponseStatus(HttpStatus.CREATED)
     EntityModel<EmployeeDTO> addEmployee(@RequestBody EmployeeDTO employee) {
         EmployeeDTO employeeDTO = service.addEmployee(employee);
         return EntityModel.of(employeeDTO,
                 linkTo(methodOn(EmployeeController.class).getEmployee(employeeDTO.getId())).withSelfRel());
+    }
+
+    @GetMapping("/employees/{id}")
+    EmployeeDTO getEmployee(@PathVariable Integer id) {
+        return service.getEmployee(id);
     }
 
     /**
@@ -73,5 +68,10 @@ public class EmployeeController {
         return EntityModel.of("Some information that it is startet doing some job (instead of string could be any object)",
                 linkTo(methodOn(EmployeeController.class).getEmployee(id)).withSelfRel(),
                 linkTo(methodOn(EmployeeController.class).getEmployees()).withRel("employees"));
+    }
+
+    @GetMapping("/employees")
+    Collection<EmployeeDTO> getEmployees() {
+        return service.getEmployees();
     }
 }
