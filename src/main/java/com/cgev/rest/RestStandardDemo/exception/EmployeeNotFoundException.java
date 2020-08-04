@@ -1,4 +1,4 @@
-package com.cgev.rest.RestStandardDemo.exceptions;
+package com.cgev.rest.RestStandardDemo.exception;
 
 public class EmployeeNotFoundException extends RuntimeException {
 

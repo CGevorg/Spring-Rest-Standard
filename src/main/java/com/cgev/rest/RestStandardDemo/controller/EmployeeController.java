@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,7 +28,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/employees")
-    List<EmployeeDTO> getEmployees() {
+    Collection<EmployeeDTO> getEmployees() {
         return service.getEmployees();
     }
 
@@ -38,8 +39,10 @@ public class EmployeeController {
 
     @PostMapping("/employees")
     @ResponseStatus(HttpStatus.CREATED)
-    void addEmployee(@RequestBody EmployeeDTO employee) {
-        service.addEmployee(employee);
+    EntityModel<EmployeeDTO> addEmployee(@RequestBody EmployeeDTO employee) {
+        EmployeeDTO employeeDTO = service.addEmployee(employee);
+        return EntityModel.of(employeeDTO,
+                linkTo(methodOn(EmployeeController.class).getEmployee(employeeDTO.getId())).withSelfRel());
     }
 
     /**
@@ -47,7 +50,7 @@ public class EmployeeController {
      * @return List of links
      */
     @GetMapping("/employees/links")
-    List<EntityModel<EmployeeDTO>> getEmployeeLinks() {
+    Collection<EntityModel<EmployeeDTO>> getEmployeeLinks() {
         return service.getEmployees().stream().map(employee ->
             EntityModel.of(employee,
                     linkTo(methodOn(EmployeeController.class).getEmployee(employee.getId())).withSelfRel())).

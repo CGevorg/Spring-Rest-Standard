@@ -4,10 +4,11 @@ package com.cgev.rest.RestStandardDemo.service;
 import com.cgev.rest.RestStandardDemo.dto.EmployeeDTO;
 import com.cgev.rest.RestStandardDemo.model.EmployeeEntity;
 import com.cgev.rest.RestStandardDemo.repository.EmployeeRepository;
-import com.cgev.rest.RestStandardDemo.exceptions.EmployeeNotFoundException;
+import com.cgev.rest.RestStandardDemo.exception.EmployeeNotFoundException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,9 +22,9 @@ public class EmployeeService {
         this.repository = repository;
     }
 
-    public List<EmployeeDTO> getEmployees() {
+    public Collection<EmployeeDTO> getEmployees() {
         return repository.findAll().stream()
-                .map(entity ->  mapper.convertValue(entity,EmployeeDTO.class))
+                .map(entity ->  mapper.convertValue(entity, EmployeeDTO.class))
                 .collect(Collectors.toList());
     }
 

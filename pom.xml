@@ -34,11 +34,12 @@
 			<artifactId>spring-boot-starter-hateoas</artifactId>
 		</dependency>
 
-		<!--<dependency>
+		<!--@TODO Understand how to remove this dependency from production mode, and use it only on development mode-->
+		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<version>1.4.197</version>
-		</dependency>-->
+		</dependency>
 
 		<dependency>
 			<groupId>mysql</groupId>
