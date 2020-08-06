@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
-
+import javax.validation.Valid;
 import java.util.Collection;
-import java.util.List;
 import java.util.stream.Collectors;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 public class EmployeeController {
@@ -29,7 +30,7 @@ public class EmployeeController {
 
     @PostMapping("/employees")
     @ResponseStatus(HttpStatus.CREATED)
-    EntityModel<EmployeeDTO> addEmployee(@RequestBody EmployeeDTO employee) {
+    EntityModel<EmployeeDTO> addEmployee(@RequestBody @Valid EmployeeDTO employee) {
         EmployeeDTO employeeDTO = service.addEmployee(employee);
         return EntityModel.of(employeeDTO,
                 linkTo(methodOn(EmployeeController.class).getEmployee(employeeDTO.getId())).withSelfRel());

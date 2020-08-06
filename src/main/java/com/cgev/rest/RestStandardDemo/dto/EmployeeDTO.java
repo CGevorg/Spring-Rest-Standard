@@ -1,9 +1,14 @@
 package com.cgev.rest.RestStandardDemo.dto;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 public class EmployeeDTO {
 
     private Integer id;
+    @NotNull(message = "someData has to be present")
     private String someData;
+    @NotNull(message = "anotherData has to be present")
     private String anotherData;
 
     public Integer getId() {
