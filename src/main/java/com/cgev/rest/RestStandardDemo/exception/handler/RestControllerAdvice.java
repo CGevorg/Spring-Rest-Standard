@@ -1,25 +1,26 @@
 package com.cgev.rest.RestStandardDemo.exception.handler;
 
 import com.cgev.rest.RestStandardDemo.exception.EmployeeNotFoundException;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class RestControllerAdvice {
 
+    private MessageSource messageSource;
+
+    RestControllerAdvice(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
@@ -39,7 +40,8 @@ public class RestControllerAdvice {
         List<Violation> violations = e.getBindingResult().getFieldErrors()
                 .stream()
                 .map(error ->
-                        new Violation(error.getObjectName(), error.getField(), error.getRejectedValue(), error.getDefaultMessage()))
+                        new Violation(error.getObjectName(), error.getField(), error.getRejectedValue(),
+                                messageSource.getMessage(error.getDefaultMessage(), null, error.getDefaultMessage(), LocaleContextHolder.getLocale())))
                 .collect(Collectors.toList());
         errorResponse.setViolations(violations);
         return errorResponse;
