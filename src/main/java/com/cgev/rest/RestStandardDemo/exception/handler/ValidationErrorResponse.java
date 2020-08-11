@@ -12,6 +12,9 @@ public class ValidationErrorResponse {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private LocalDateTime timestamp;
 
+    @JsonProperty("message")
+    private String message;
+
     @JsonProperty("violations")
     private List<Violation> violations = new ArrayList<>();
 
@@ -33,5 +36,13 @@ public class ValidationErrorResponse {
 
     public void setViolations(List<Violation> violations) {
         this.violations = violations;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

@@ -1,6 +1,7 @@
 package com.cgev.rest.RestStandardDemo.exception.handler;
 
 import com.cgev.rest.RestStandardDemo.exception.EmployeeNotFoundException;
+import com.cgev.rest.RestStandardDemo.util.MessageKey;
 import com.sun.org.apache.bcel.internal.generic.ARETURN;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -41,11 +42,12 @@ public class RestControllerAdvice {
     ValidationErrorResponse onMethodArgumentNotValidException(
             MethodArgumentNotValidException e) {
         ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+        errorResponse.setMessage(getLocalizedMessage(MessageKey.VALIDATION_FAILED));
         List<Violation> violations = e.getBindingResult().getFieldErrors()
                 .stream()
                 .map(error ->
                         new Violation(error.getObjectName(), error.getField(), error.getRejectedValue(),
-                                messageSource.getMessage(error.getDefaultMessage(), null, error.getDefaultMessage(), LocaleContextHolder.getLocale())))
+                                getLocalizedMessage(error.getDefaultMessage())))
                 .collect(Collectors.toList());
         errorResponse.setViolations(violations);
         return errorResponse;
@@ -62,18 +64,19 @@ public class RestControllerAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ValidationErrorResponse onConstraintViolationException(ConstraintViolationException e) {
         ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+        errorResponse.setMessage(getLocalizedMessage(MessageKey.VALIDATION_FAILED));
         List<Violation> violations = e.getConstraintViolations()
                 .stream()
                 .map(violation -> new Violation(violation.getPropertyPath().toString(),
                         violation.getPropertyPath().toString(),
                         violation.getInvalidValue(),
-                        messageSource.getMessage(violation.getMessage(),
-                                null,
-                                violation.getMessage(),
-                                LocaleContextHolder.getLocale())))
+                        getLocalizedMessage(violation.getMessage())))
                 .collect(Collectors.toList());
         errorResponse.setViolations(violations);
         return errorResponse;
     }
 
+    private String getLocalizedMessage(String key) {
+        return messageSource.getMessage(key, null, key, LocaleContextHolder.getLocale());
+    }
 }

@@ -5,4 +5,5 @@ public class MessageKey {
 
     public static final String PROPERTY_NOT_NULL = "validation.property.notnull";
     public static final String PROPERTY_NOT_EMPTY = "validation.property.notempty";
+    public static final String VALIDATION_FAILED = "validation.failed";
 }
