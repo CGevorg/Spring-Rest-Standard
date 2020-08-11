@@ -54,7 +54,8 @@ public class RestControllerAdvice {
     }
 
     /**
-     * handle violation exceptions
+     * Handle violation exceptions.
+     * In most cases used when controller tagged with @Validated annotation and inside Validating list of DTOs
      *
      * @param e exception
      * @return wrapped result
