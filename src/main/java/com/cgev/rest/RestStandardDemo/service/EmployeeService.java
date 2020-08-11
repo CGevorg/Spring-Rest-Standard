@@ -2,14 +2,13 @@ package com.cgev.rest.RestStandardDemo.service;
 
 
 import com.cgev.rest.RestStandardDemo.dto.EmployeeDTO;
+import com.cgev.rest.RestStandardDemo.exception.EmployeeNotFoundException;
 import com.cgev.rest.RestStandardDemo.model.EmployeeEntity;
 import com.cgev.rest.RestStandardDemo.repository.EmployeeRepository;
-import com.cgev.rest.RestStandardDemo.exception.EmployeeNotFoundException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -45,6 +44,15 @@ public class EmployeeService {
      */
     public EmployeeDTO addEmployee(EmployeeDTO employee) {
 
+        return mapper.convertValue(repository.save(mapper.convertValue(employee, EmployeeEntity.class)), EmployeeDTO.class);
+    }
+
+    /**
+     * Update employee or add a new one
+     * @param employee which we are going to update or add
+     * @return updated or created employee
+     */
+    public EmployeeDTO updateEmployee(EmployeeDTO employee) {
         return mapper.convertValue(repository.save(mapper.convertValue(employee, EmployeeEntity.class)), EmployeeDTO.class);
     }
 }
