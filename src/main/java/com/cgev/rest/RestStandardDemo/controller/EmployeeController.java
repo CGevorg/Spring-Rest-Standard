@@ -4,26 +4,23 @@ import com.cgev.rest.RestStandardDemo.dto.EmployeeDTO;
 import com.cgev.rest.RestStandardDemo.service.EmployeeService;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
-import java.net.URI;
-import java.util.Collection;
-import java.util.stream.Collectors;
+import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+@Validated
 @RestController
 public class EmployeeController {
 
@@ -59,6 +56,11 @@ public class EmployeeController {
     @DeleteMapping("/employees/{id}")
     void deleteEmployee(@PathVariable Integer id) {
         service.deleteEmployee(id);
+    }
+
+    @PostMapping("/employees/all")
+    void addEmployees(@RequestBody @Valid List<EmployeeDTO> employee) {
+        service.deleteEmployee(1);
     }
 
 
