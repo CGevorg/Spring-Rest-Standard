@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.Collection;
 import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -43,6 +45,11 @@ public class EmployeeController {
         return service.getEmployee(id);
     }
 
+    @GetMapping("/employees")
+    Collection<EmployeeDTO> getEmployees() {
+        return service.getEmployees();
+    }
+
     /**
      * @param employee
      * @return
@@ -58,33 +65,8 @@ public class EmployeeController {
         service.deleteEmployee(id);
     }
 
-    /**
-     * Retrieve links for all employees
-     * @return List of links
-     *//*
-    @GetMapping("/employees/links")
-    Collection<EntityModel<EmployeeDTO>> getEmployeeLinks() {
-        return service.getEmployees().stream().map(employee ->
-            EntityModel.of(employee,
-                    linkTo(methodOn(EmployeeController.class).getEmployee(employee.getId())).withSelfRel())).
-                collect(Collectors.toList());
+    @DeleteMapping("/employees")
+    void deleteEmployee(@RequestParam List<Integer> ids) {
+        service.deleteEmployees(ids);
     }
-
-    *//**
-     * Demo function which demonstraits that could could give them back API with which they could poll you back
-     * for status retrieval or something else
-     * @param id Employee Id
-     * @return Response with links to another API's
-     *//*
-    @PostMapping("/employees/{id}/startworking")
-    EntityModel<String> startWorking(@PathVariable Integer id) {
-        return EntityModel.of("Some information that it is startet doing some job (instead of string could be any object)",
-                linkTo(methodOn(EmployeeController.class).getEmployee(id)).withSelfRel(),
-                linkTo(methodOn(EmployeeController.class).getEmployees()).withRel("employees"));
-    }
-
-    @GetMapping("/employees")
-    Collection<EmployeeDTO> getEmployees() {
-        return service.getEmployees();
-    }*/
 }

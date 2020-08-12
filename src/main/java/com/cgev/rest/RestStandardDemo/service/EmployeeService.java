@@ -8,7 +8,9 @@ import com.cgev.rest.RestStandardDemo.repository.EmployeeRepository;
 import com.cgev.rest.RestStandardDemo.util.mapper.CustomObjectMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,9 +35,23 @@ public class EmployeeService {
         return mapper.convertValue(entity, EmployeeDTO.class);
     }
 
+    /**
+     * Deleting Employee
+     * @param id
+     */
     public void deleteEmployee(Integer id) {
-        repository.findById(id).orElseThrow(() -> new EmployeeNotFoundException(id));
-        repository.deleteById(id);
+        deleteEmployees(Arrays.asList(id));
+    }
+
+    /**
+     * Removing Employees
+     * @param ids
+     */
+    public void deleteEmployees(List<Integer> ids) {
+        for(Integer id : ids) {
+            repository.findById(id).orElseThrow(() -> new EmployeeNotFoundException(id));
+            repository.deleteById(id);
+        }
     }
 
     /**
