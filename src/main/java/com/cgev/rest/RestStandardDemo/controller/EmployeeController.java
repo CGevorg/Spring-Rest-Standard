@@ -32,7 +32,8 @@ public class EmployeeController {
         this.service = service;
     }
 
-    @PostMapping("/employees")
+    @PostMapping({"/v1/employees",
+    "/v2/employees"})
     @ResponseStatus(HttpStatus.CREATED)
     EntityModel<EmployeeDTO> addEmployee(@RequestBody @Valid EmployeeDTO employee) {
         EmployeeDTO employeeDTO = service.addEmployee(employee);
@@ -40,12 +41,12 @@ public class EmployeeController {
                 linkTo(methodOn(EmployeeController.class).getEmployee(employeeDTO.getId())).withSelfRel());
     }
 
-    @GetMapping("/employees/{id}")
+    @GetMapping("/v1/employees/{id}")
     EmployeeDTO getEmployee(@PathVariable Integer id) {
         return service.getEmployee(id);
     }
 
-    @GetMapping("/employees")
+    @GetMapping("/v1/employees")
     Collection<EmployeeDTO> getEmployees() {
         return service.getEmployees();
     }
@@ -55,17 +56,17 @@ public class EmployeeController {
      * @return
      * //@TODO If the resource already exists it should return 200
      */
-    @PutMapping("/employees/{id}")
+    @PutMapping("/v1/employees/{id}")
     EmployeeDTO updateEmployee(@RequestBody @Valid EmployeeDTO employee) {
         return service.updateEmployee(employee);
     }
 
-    @DeleteMapping("/employees/{id}")
+    @DeleteMapping("/v1/employees/{id}")
     void deleteEmployee(@PathVariable Integer id) {
         service.deleteEmployee(id);
     }
 
-    @DeleteMapping("/employees")
+    @DeleteMapping("/v1/employees")
     void deleteEmployee(@RequestParam List<Integer> ids) {
         service.deleteEmployees(ids);
     }
