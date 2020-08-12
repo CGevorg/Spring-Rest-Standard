@@ -58,12 +58,6 @@ public class EmployeeController {
         service.deleteEmployee(id);
     }
 
-    @PostMapping("/employees/all")
-    void addEmployees(@RequestBody @Valid List<EmployeeDTO> employee) {
-        service.deleteEmployee(1);
-    }
-
-
     /**
      * Retrieve links for all employees
      * @return List of links

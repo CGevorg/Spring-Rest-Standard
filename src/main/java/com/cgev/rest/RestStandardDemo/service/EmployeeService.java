@@ -5,7 +5,7 @@ import com.cgev.rest.RestStandardDemo.dto.EmployeeDTO;
 import com.cgev.rest.RestStandardDemo.exception.EmployeeNotFoundException;
 import com.cgev.rest.RestStandardDemo.model.EmployeeEntity;
 import com.cgev.rest.RestStandardDemo.repository.EmployeeRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.cgev.rest.RestStandardDemo.util.mapper.CustomObjectMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -14,11 +14,12 @@ import java.util.stream.Collectors;
 @Service
 public class EmployeeService {
 
-    private EmployeeRepository repository;
-    private ObjectMapper mapper = new ObjectMapper();
+    private final EmployeeRepository repository;
+    private final CustomObjectMapper mapper;
 
-    EmployeeService(EmployeeRepository repository) {
+    EmployeeService(EmployeeRepository repository, CustomObjectMapper mapper) {
         this.repository = repository;
+        this.mapper = mapper;
     }
 
     public Collection<EmployeeDTO> getEmployees() {
