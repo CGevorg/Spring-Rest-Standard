@@ -12,7 +12,7 @@ services:
       # - HOSTNAME=own-network
     ports:
       - 3305:3306
-    restart: unless-stopped
+    #restart: unless-stopped
   webapp:
     build: .
     ports:

@@ -10,14 +10,14 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-@RunWith(SpringRunner.class)
-@WebMvcTest(EmployeeController.class)
+//@RunWith(SpringRunner.class)
+//@WebMvcTest(EmployeeController.class)
 public class EmployeeControllerTest {
 
-    @Autowired
+    //@Autowired
     private MockMvc mvc;
 
     //@MockBean for mocking the bean It we should use with @ContextConfigureation annotation
-    @Autowired
+    //@Autowired
     private EmployeeService service;
 }
