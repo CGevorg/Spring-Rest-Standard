@@ -27,8 +27,6 @@ public class EmployeeServiceTest {
         testEmployee = new EmployeeDTO();
         testEmployee.setSomeData("Some Data");
         testEmployee.setAnotherData("Another Data");
-
-
     }
 
     @Test
