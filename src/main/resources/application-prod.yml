@@ -1,0 +1,13 @@
+
+# Mysql database configurations
+spring:
+  jpa.database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  datasource:
+    url: jdbc:mysql://localhost:3306/new?createDatabaseIfNotExist=true&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: vmware
+
+#Uncomment below two lines for loading init-data.sql file
+#spring.datasource.initialization-mode: always
+#spring.datasource.data: classpath:init-data.sql
