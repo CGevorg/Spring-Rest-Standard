@@ -20,5 +20,5 @@ Used technologies.
 - Docker
 - Docker Compose
 - Swagger
-- MySql(for production)
+- MySQL(for production)
 - H2 (for development)
