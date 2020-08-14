@@ -14,6 +14,7 @@ Used technologies.
 - Spring Data JPA
 - Spring Security
 - Spring Validation
+- Spring Eureka
 - Hibernate
 - Maven
 - Docker
