@@ -3,4 +3,19 @@
 Template for creating spring based microservice ecosystem.
 Its done all the configuration part you just have to fork it and add your java core part.
 
-# For runnning a project run docker-compose up --build
+**For runnning a project run**
+`docker-compose up --build`
+
+Used technologies.
+
+- Java
+- Spring Boot
+- Spring Hateoas
+- Spring Data JPA
+- Spring Security
+- Spring Validation
+- Hibernate
+- Maven
+- Docker
+- Docker Compose
+- Swagger
