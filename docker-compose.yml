@@ -2,25 +2,22 @@ version: "3.3"
 services:
   docker-mysql:
     image: mysql:8.0
-    volumes:
-      - db-data:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=vmware
-      #- MYSQL_DATABASE=new
-      # - MYSQL_USER=root
-      # - MYSQL_PASSWORD=vmware
-      # - HOSTNAME=own-network
+      - MYSQL_ROOT_PASSWORD=test
     ports:
       - 3305:3306
-    #restart: unless-stopped
+    restart: unless-stopped
+
+    # healthcheck are not supported after docker-compose V3 Consider moving to Kubernates
+    #https://github.com/peter-evans/docker-compose-healthcheck/issues/3
   webapp:
     build: .
     ports:
       - 8080:8080
     depends_on:
       - docker-mysql
-    restart: unless-stopped
+    restart: on-failure
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://docker-mysql:3306/new?createDatabaseIfNotExist=true&serverTimezone=UTC
-volumes:
-  db-data:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://docker-mysql:3306/new?createDatabaseIfNotExist=true&serverTimezone=UTC
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=test

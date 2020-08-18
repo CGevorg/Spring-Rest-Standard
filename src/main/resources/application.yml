@@ -5,4 +5,3 @@ spring:
     hibernate.ddl-auto: create-drop
 #@activatedProperties@ read from pom.xml profiles
   profiles.active: @activatedProperties@
-
