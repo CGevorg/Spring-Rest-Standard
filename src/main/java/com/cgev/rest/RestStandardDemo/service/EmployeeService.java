@@ -6,6 +6,8 @@ import com.cgev.rest.RestStandardDemo.exception.EmployeeNotFoundException;
 import com.cgev.rest.RestStandardDemo.model.EmployeeEntity;
 import com.cgev.rest.RestStandardDemo.repository.EmployeeRepository;
 import com.cgev.rest.RestStandardDemo.util.mapper.CustomObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -15,6 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class EmployeeService {
+    private final Logger logger = LoggerFactory.getLogger(EmployeeService.class);
 
     private final EmployeeRepository repository;
     private final CustomObjectMapper mapper;
@@ -60,8 +63,10 @@ public class EmployeeService {
      * @return new added object
      */
     public EmployeeDTO addEmployee(EmployeeDTO employee) {
-
-        return mapper.convertValue(repository.save(mapper.convertValue(employee, EmployeeEntity.class)), EmployeeDTO.class);
+        logger.info("Adding new employee with: " + employee);
+        EmployeeDTO employeeDTO = mapper.convertValue(repository.save(mapper.convertValue(employee, EmployeeEntity.class)), EmployeeDTO.class);
+        logger.info("Employee added successfully");
+        return employeeDTO;
     }
 
     /**
