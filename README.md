@@ -21,4 +21,4 @@ Used technologies.
 - Swagger
 - MySQL(for production)
 - H2 (for development)
-- Logback
+- Log4j2
